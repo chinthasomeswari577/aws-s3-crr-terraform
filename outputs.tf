@@ -1,51 +1,70 @@
-# outputs.tf
-
 # -------------------------------
 # S3 Bucket Outputs
 # -------------------------------
-output "source_bucket_arn" {
-  description = "ARN of the source bucket"
-  value       = aws_s3_bucket.source.arn
-}
-
-output "destination_bucket_arn" {
-  description = "ARN of the destination bucket"
-  value       = aws_s3_bucket.destination.arn
-}
 
 output "source_bucket_name" {
-  description = "Name of the source bucket"
+  description = "Name of the source S3 bucket"
   value       = aws_s3_bucket.source.bucket
 }
 
+output "source_bucket_arn" {
+  description = "ARN of the source S3 bucket"
+  value       = aws_s3_bucket.source.arn
+}
+
 output "destination_bucket_name" {
-  description = "Name of the destination bucket"
+  description = "Name of the destination S3 bucket"
   value       = aws_s3_bucket.destination.bucket
 }
 
+output "destination_bucket_arn" {
+  description = "ARN of the destination S3 bucket"
+  value       = aws_s3_bucket.destination.arn
+}
+
 # -------------------------------
-# IAM Role & Policy Outputs
+# Versioning Outputs
 # -------------------------------
+
+output "source_versioning_status" {
+  description = "Versioning status of source bucket"
+  value       = aws_s3_bucket_versioning.source_versioning.versioning_configuration[0].status
+}
+
+output "destination_versioning_status" {
+  description = "Versioning status of destination bucket"
+  value       = aws_s3_bucket_versioning.destination_versioning.versioning_configuration[0].status
+}
+
+# -------------------------------
+# IAM Outputs
+# -------------------------------
+
+output "replication_role_name" {
+  description = "Name of IAM replication role"
+  value       = aws_iam_role.replication.name
+}
+
 output "replication_role_arn" {
-  description = "ARN of the IAM role used for replication"
+  description = "ARN of IAM replication role"
   value       = aws_iam_role.replication.arn
 }
 
+output "replication_policy_arn" {
+  description = "ARN of IAM replication policy"
+  value       = aws_iam_policy.replication_policy.arn
+}
+
 output "replication_policy_id" {
-  description = "ID of the IAM policy attached to the replication role"
-  value       = aws_iam_policy.replication.id
+  description = "ID of IAM replication policy"
+  value       = aws_iam_policy.replication_policy.id
 }
 
 # -------------------------------
-# Replication Rule Outputs
+# Replication Configuration Output
 # -------------------------------
+
 output "replication_rule_id" {
-  description = "ID of the replication rule"
-  value       = aws_s3_bucket_replication_configuration.replication.rule[0].id
+  description = "Replication rule ID"
+  value       = aws_s3_bucket_replication_configuration.replication.id
 }
-
-
-/*source_bucket_arn = arn:aws:s3:::terraform-crr-source-2026
-destination_bucket_arn = arn:aws:s3:::terraform-crr-destination-2026
-replication_role_arn = arn:aws:iam::123456789012:role/s3-replication-role
-replication_rule_id = replication-rule*/
