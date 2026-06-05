@@ -55,7 +55,7 @@ output:
 ---
 ## 🔄 Project Workflow
 
-![Project Workflow](screenshots/Project-workflow.png)
+![Project Workflow](screenshots/Project-workflow-crr.png)
 
 ### Workflow Steps
 1. terraform init
